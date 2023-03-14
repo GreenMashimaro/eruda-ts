@@ -1,0 +1,19 @@
+{
+  "extends": "./tsconfig-library-base.json",
+  "compilerOptions": {
+    "lib": [
+      "dom",
+      "es2015",
+      "es2016.Array.Include"
+    ],
+    "outDir": "./out",
+    "types": [
+      "../../node_modules/@types/mocha"
+    ],
+    "baseUrl": "..",
+    "paths": {}
+  },
+  "include": [
+    "./src/*",
+  ]
+}
