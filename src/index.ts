@@ -6,4 +6,6 @@ export function zzn1 (param1: string): string {
   return `${param1}_hello222:`
 }
 
-export function zzn2 () {}
+export function zzn2 (num: number) {
+  return num + 1
+}

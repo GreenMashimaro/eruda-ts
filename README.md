@@ -7,9 +7,6 @@ Project original address： https://github.com/liriliri/eruda
 ```
 pnpm install
 
-// Generate necessary files
-pnpm run setup
-
 // Build and start the webpack server for the first time
 pnpm run start
 
