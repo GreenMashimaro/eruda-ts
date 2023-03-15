@@ -13,7 +13,9 @@
     "watch:ts": "tsc -b -w ./tsconfig.json --preserveWatchOutput",
     "scss:copy": "cpx 'src/**/*.scss' out/src",
     "scss:copy:watch": "pnpm run scss:copy --watch",
-    "test": "jest"
+    "test": "jest",
+    "lint": "eslint \"src/**\" --ext \".ts\"",
+    "lint:fix": "pnpm run lint --fix"
   },
   "devDependencies": {
     "@types/jest": "^29.4.2",
@@ -33,7 +35,18 @@
     "sass-loader": "^13.0.2",
     "ts-jest": "^29.0.5",
     "ts-node": "^10.9.1",
-    "webpack": "^5.61.0"
+    "webpack": "^5.61.0",
+    "@rushstack/eslint-patch": "^1.1.4",
+    "@typescript-eslint/eslint-plugin": "^5.31.0",
+    "@typescript-eslint/parser": "^5.31.0",
+    "@vue/eslint-config-prettier": "^7.0.0",
+    "@vue/eslint-config-typescript": "^11.0.0",
+    "eslint": "^8.20.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-sonarjs": "^0.14.0",
+    "eslint-plugin-vue": "^9.3.0",
+    "prettier": "^2.7.1"
   },
   "dependencies": {
     "licia": "^1.38.0",
