@@ -7,13 +7,14 @@
       "es2016.Array.Include"
     ],
     "outDir": "./out",
-    "types": [
-      "../../node_modules/@types/mocha"
-    ],
     "baseUrl": "..",
-    "paths": {}
+    "paths": {
+      "@/*": ["src/*"],
+    },
+    "esModuleInterop": true
   },
   "include": [
-    "./src/*",
+    "./src/**/*",
+    "./typings/declaration.d.ts"
   ]
 }

@@ -5,19 +5,33 @@
   "main": "index.js",
   "scripts": {
     "start": "node demo/start",
-    "prepare": "npm run setup",
-    "setup": "npm run build",
-    "build": "tsc -b ./tsconfig.all.json",
-    "watch": "tsc -b -w ./tsconfig.all.json --preserveWatchOutput"
+    "prepare": "pnpm run setup",
+    "setup": "pnpm run build",
+    "build": "run-p build:ts scss:copy",
+    "watch": "run-p watch:ts scss:copy:watch",
+    "build:ts": "tsc -b ./tsconfig.json",
+    "watch:ts": "tsc -b -w ./tsconfig.json --preserveWatchOutput",
+    "scss:copy": "cpx 'src/**/*.scss' out/src",
+    "scss:copy:watch": "pnpm run scss:copy --watch"
   },
   "devDependencies": {
     "@types/mocha": "^9.1.1",
     "@types/webpack": "^5.28.0",
+    "autoprefixer": "^9.7.4",
+    "cpx": "^1.5.0",
+    "css-loader": "^3.4.2",
     "express": "^4.18.1",
     "express-ws": "^5.0.2",
+    "npm-run-all": "^4.1.5",
+    "postcss-clean": "^1.1.0",
+    "postcss-loader": "^3.0.0",
+    "postcss-prefixer": "^2.1.2",
+    "sass": "^1.59.2",
+    "sass-loader": "^13.0.2",
     "webpack": "^5.61.0"
   },
   "dependencies": {
+    "licia": "^1.38.0",
     "node-pty": "^0.10.1",
     "source-map-loader": "^3.0.0",
     "ts-loader": "^9.1.2",
