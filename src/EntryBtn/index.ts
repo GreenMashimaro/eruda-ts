@@ -1,5 +1,7 @@
+import LocalStore from 'licia/LocalStore'
 import Emitter from 'licia/Emitter'
 import $ from 'licia/$'
+import { Settings } from '@/Settings'
 import EntryBtnScss from './EntryBtn.scss'
 import { destroyStyle, evalCss } from '@/lib/evalCss'
 import { IDisposable } from 'eruda'
@@ -8,6 +10,8 @@ import { classPrefix as c, drag, eventClient, pxToNum } from '@/lib/util'
 const $document = $(document)
 
 export class EntryBtn extends Emitter implements IDisposable {
+  public config!: LocalStore
+
   private _cssEl: HTMLElement = evalCss(EntryBtnScss)
 
   private _$container: $.$
@@ -42,6 +46,15 @@ export class EntryBtn extends Emitter implements IDisposable {
 
   public hide() {
     this._$el.hide()
+  }
+
+  public initCfg(settings: Settings) {
+    const config = Settings.createCfg('entry-button', {
+      rememberPos: true,
+      pos: this._getDefPos(),
+    })
+    this.config = config
+    settings.switch(config, 'rememberPos', 'Remember Entry Button Position')
   }
 
   private _initTpl() {
@@ -120,5 +133,15 @@ export class EntryBtn extends Emitter implements IDisposable {
 
   private _unregisterListener() {
     // TODO
+  }
+
+  private _getDefPos() {
+    const el = this._$el.get(0) as HTMLElement
+    const minWidth = el.offsetWidth + 10
+
+    return {
+      x: window.innerWidth - minWidth,
+      y: window.innerHeight - minWidth,
+    }
   }
 }

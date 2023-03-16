@@ -8,6 +8,7 @@ import { emitter, EmitterEvent } from '@/lib/emitter'
 import ResetScss from '@/style/reset.scss'
 import IconCss from '@/style/icon.css'
 import LunaTabCss from 'luna-tab/luna-tab.css'
+import LunaSettingCss from 'luna-setting/luna-setting.css'
 import StyleScss from '@/style/style.scss'
 
 import { Settings } from '@/Settings'
@@ -25,22 +26,24 @@ export class Eruda implements ErudaApi {
   private _devTools: DevTools
   private _styleEl: HTMLElement | null = null
   private _showListener!: (name: string) => void
+  private _settings = new Settings()
 
   constructor(options: IErudaOptions) {
     this._$el = $(options.container)
 
     this._registerListener()
 
+    const tools = this._initAllTools(this._settings)
+
     this._initContainer(options.container)
     this._initStyle()
-
-    this._initEntryBtn()
-
-    const devTools = this._initDevTools()
-    devTools.initCfg()
+    const devTools = this._initDevTools(this._settings)
+    tools.forEach((tool) => {
+      devTools.add(tool)
+    })
     this._devTools = devTools
 
-    this._initAllTools()
+    this._initEntryBtn()
 
     emitter.emit(EmitterEvent.SHOW)
   }
@@ -97,22 +100,25 @@ export class Eruda implements ErudaApi {
 
     $el.append(`<div class="${className}"></div>`)
 
-    const styles = [ResetScss, IconCss, LunaTabCss, StyleScss]
+    const styles = [ResetScss, IconCss, LunaTabCss, LunaSettingCss, StyleScss]
     this._styleEl = evalCss(styles.join(' '))
   }
 
   private _initEntryBtn() {
     const entryBtn = new EntryBtn(this._$el)
     entryBtn.on('click', () => this._devTools.toggle())
+    entryBtn.initCfg(this._settings)
   }
 
-  private _initDevTools() {
-    return new DevTools(this._$el, { theme: 'Light' })
+  private _initDevTools(settings: Settings) {
+    const devTools = new DevTools(this._$el, { theme: 'Light' })
+    devTools.initCfg(settings)
+    return devTools
   }
 
-  private _initAllTools() {
-    const tools = [
-      new Settings(),
+  private _initAllTools(settings: Settings) {
+    return [
+      settings,
 
       new Console(),
       new Elements(),
@@ -122,9 +128,5 @@ export class Eruda implements ErudaApi {
       new Info(),
       new Snippets(),
     ]
-
-    tools.forEach((tool) => {
-      this._devTools.add(tool)
-    })
   }
 }
