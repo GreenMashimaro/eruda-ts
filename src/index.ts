@@ -17,8 +17,6 @@ import { Sources } from '@/Sources'
 import { Info } from '@/Info'
 import { Snippets } from '@/Snippets'
 
-console.log('zzn LunaTabC:', LunaTabCss)
-
 export class Eruda implements ErudaApi {
   private _$el: $.$
   private _devTools: DevTools
@@ -44,6 +42,9 @@ export class Eruda implements ErudaApi {
 
   public show(name: string) {
     if (name) {
+      // zzn
+      // eslint-disable-next-line no-debugger
+      debugger
       this._devTools.showTool(name)
     } else {
       this._devTools.show()

@@ -7,5 +7,9 @@ export interface IDevToolOptions {
 }
 
 export interface ITool {
+  name: string
+  devTools: DevTools
+  active: boolean
+
   init($el: $.$, devTools: DevTools): void
 }

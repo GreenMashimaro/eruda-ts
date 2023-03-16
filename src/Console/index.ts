@@ -1,16 +1,39 @@
 import { DevTools } from '@/DevTools'
 import { Tool } from '@/DevTools/Tool'
+import { deleteStyle, evalCss } from '@/lib/evalCss'
+import { IDisposable } from 'eruda'
 import $ from 'licia/$'
+import { classPrefix as c } from '@/lib/util'
 
-export class Console extends Tool {
+import ConsoleScss from './Console.scss'
+
+export class Console extends Tool implements IDisposable {
+  private _cssEl: HTMLElement = evalCss(ConsoleScss)
+
   constructor() {
     super('console')
 
     this._bindEvent()
   }
 
+  public dispose(): void {
+    deleteStyle(this._cssEl)
+  }
+
   public init($el: $.$, devTools: DevTools) {
     super.init($el, devTools)
+
+    this._appendTpl()
+  }
+
+  private _appendTpl() {
+    this._$el.append(
+      c(`
+        <div class="control">
+          control
+        </div>
+      `)
+    )
   }
 
   private _bindEvent() {

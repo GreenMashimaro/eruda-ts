@@ -8,7 +8,7 @@
     "prepare": "pnpm run setup",
     "setup": "pnpm run build",
     "build": "run-p build:ts scss:copy",
-    "watch": "run-p watch:ts scss:copy:watch",
+    "watch": "run-p build watch:ts scss:copy:watch",
     "build:ts": "tsc -b ./tsconfig.json",
     "watch:ts": "tsc -b -w ./tsconfig.json --preserveWatchOutput",
     "scss:copy": "cpx 'src/**/*.scss' out/src",

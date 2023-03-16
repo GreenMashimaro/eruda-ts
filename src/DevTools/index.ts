@@ -1,5 +1,6 @@
 import Emitter from 'licia/Emitter'
 import extend from 'licia/extend'
+import each from 'licia/each'
 import { IDisposable } from 'eruda'
 import { IDevToolOptions } from './Types'
 import DevToolsScss from './DevTools.scss'
@@ -8,22 +9,24 @@ import { classPrefix as c } from '@/lib/util'
 import $ from 'licia/$'
 import LunaTab from 'luna-tab'
 import { Tool } from './Tool'
+import logger from '@/lib/logger'
 
 export class DevTools extends Emitter implements IDisposable {
   private $container: $.$
   private _defCfg: IDevToolOptions
-  private _cssEl: HTMLElement
+  private _cssEl: HTMLElement = evalCss(DevToolsScss)
   private _$el: $.$
   private _$tools: $.$
   private _isShow = true // zzn
   private _tab!: LunaTab
+  private _curToolName = ''
+  private _tools: { [key: string]: Tool } = {}
 
   constructor($container: $.$, options: IDevToolOptions) {
     super()
 
     this.$container = $container
     this._defCfg = extend({ theme: 'Light' }, options) as IDevToolOptions
-    this._cssEl = evalCss(DevToolsScss)
 
     const { $el, $tools } = this._initTpl()
     this._$el = $el
@@ -38,7 +41,30 @@ export class DevTools extends Emitter implements IDisposable {
   }
 
   public showTool(name: string) {
-    // TODO
+    if (this._curToolName === name) {
+      return
+    }
+
+    const tools = this._tools
+    const tool = tools[name]
+    if (!tool) {
+      return
+    }
+
+    let lastTool: Tool | null = null
+    console.log('zzn tools:', tools)
+
+    each(tools, (toolItem) => {
+      if (toolItem.active) {
+        lastTool = toolItem
+        toolItem.active = false
+        toolItem.hide()
+      }
+    })
+    tool.active = true
+    tool.show()
+
+    this.emit('showTool', name, lastTool)
   }
 
   public hide() {
@@ -53,6 +79,14 @@ export class DevTools extends Emitter implements IDisposable {
     const name = tool.name
     const tab = this._tab
 
+    if (this._tools[name]) {
+      logger.warn(`Tool ${name} already exists`)
+      return
+    }
+
+    this._tools[name] = tool
+    this._$tools.prepend(`<div id="${c(name)}" class="${c(name + ' tool')}"></div>`)
+
     const $nameEl = this._$tools.find(`.${c(name)}.${c('tool')}`)
     tool.init($nameEl, this)
 
@@ -62,7 +96,6 @@ export class DevTools extends Emitter implements IDisposable {
         title: name,
       })
     } else {
-      console.log('zzn log')
       tab.insert(tab.length - 1, {
         id: name,
         title: name,

@@ -5,7 +5,8 @@ import { ITool } from './Types'
 export class Tool implements ITool {
   public name: string
   public devTools!: DevTools
-  private _$el!: $.$
+  protected _$el!: $.$
+  public active = false
 
   constructor(name: string) {
     this.name = name
@@ -18,14 +19,11 @@ export class Tool implements ITool {
 
   public show() {
     this._$el.show()
-
-    return this
   }
 
   public hide() {
+    console.log('zzn hide this._$el:', this._$el)
     this._$el.hide()
-
-    return this
   }
 
   public destroy() {

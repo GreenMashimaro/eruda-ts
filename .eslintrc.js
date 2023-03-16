@@ -29,6 +29,8 @@ module.exports = {
     'require-await': 'error',
     // 禁止在undefined值上使用可选链
     'no-unsafe-optional-chaining': 'error',
+    // 禁止在外部作用域中声明的隐藏变量的变量声明
+    'no-shadow': 'error',
     // 在模块中强制执行排序的导入声明。
     'sort-imports': [
       'error',
