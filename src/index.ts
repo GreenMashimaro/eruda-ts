@@ -3,9 +3,21 @@ import extend from 'licia/extend'
 import $ from 'licia/$'
 import { DevTools } from '@/DevTools'
 import { deleteStyle, evalCss } from './lib/evalCss'
-import StyleScss from '@/style/style.scss'
 import { emitter, EmitterEvent } from '@/lib/emitter'
-import { Settings } from './Settings/Settings'
+
+import StyleScss from '@/style/style.scss'
+import LunaTabCss from 'luna-tab/luna-tab.css'
+
+import { Settings } from '@/Settings'
+import { Console } from '@/Console'
+import { Elements } from '@/Elements'
+import { Network } from '@/Network'
+import { Resources } from '@/Resources'
+import { Sources } from '@/Sources'
+import { Info } from '@/Info'
+import { Snippets } from '@/Snippets'
+
+console.log('zzn LunaTabC:', LunaTabCss)
 
 export class Eruda implements ErudaApi {
   private _$el: $.$
@@ -25,7 +37,7 @@ export class Eruda implements ErudaApi {
     devTools.initCfg()
     this._devTools = devTools
 
-    this._initSettings()
+    this._initAllTools()
 
     emitter.emit(EmitterEvent.SHOW)
   }
@@ -82,17 +94,29 @@ export class Eruda implements ErudaApi {
 
     $el.append(`<div class="${className}"></div>`)
 
-    this._styleEl = evalCss(StyleScss)
+    const styles = [LunaTabCss, StyleScss]
+    this._styleEl = evalCss(styles.join(' '))
   }
 
   private _initDevTools() {
     return new DevTools(this._$el, { theme: 'Light' })
   }
 
-  private _initSettings() {
-    const devTools = this._devTools
-    const settings = new Settings()
+  private _initAllTools() {
+    const tools = [
+      new Settings(),
 
-    devTools.add(settings)
+      new Console(),
+      new Elements(),
+      new Network(),
+      new Resources(),
+      new Sources(),
+      new Info(),
+      new Snippets(),
+    ]
+
+    tools.forEach((tool) => {
+      this._devTools.add(tool)
+    })
   }
 }

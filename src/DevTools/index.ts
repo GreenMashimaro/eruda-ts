@@ -50,16 +50,24 @@ export class DevTools extends Emitter implements IDisposable {
   }
 
   public add(tool: Tool) {
-    console.log('zzn ssdsdadd setting~')
     const name = tool.name
+    const tab = this._tab
 
     const $nameEl = this._$tools.find(`.${c(name)}.${c('tool')}`)
-    tool.init($nameEl)
+    tool.init($nameEl, this)
 
-    this._tab.append({
-      id: name,
-      title: name,
-    })
+    if (name === 'settings') {
+      tab.append({
+        id: name,
+        title: name,
+      })
+    } else {
+      console.log('zzn log')
+      tab.insert(tab.length - 1, {
+        id: name,
+        title: name,
+      })
+    }
   }
 
   public dispose(): void {

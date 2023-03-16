@@ -4,30 +4,31 @@ import LunaSetting from 'luna-setting'
 import LocalStore from 'licia/LocalStore'
 import { ISetting } from './Types'
 import { IDisposable } from 'eruda'
+import { deleteStyle, evalCss } from '@/lib/evalCss'
+import SettingsScss from './Settings.scss'
+import { DevTools } from '@/DevTools'
 
 export class Settings extends Tool implements IDisposable {
-  public name = 'settings'
-
   private _setting!: LunaSetting
   private _settings: ISetting[] = []
-  // private _cssEl: HTMLElement
+  private _cssEl: HTMLElement
 
   constructor() {
-    super()
+    super('settings')
 
-    // this._cssEl = evalCss(SettingsScss)
+    this._cssEl = evalCss(SettingsScss)
   }
 
   public dispose(): void {
-    // deleteStyle(this._cssEl)
+    deleteStyle(this._cssEl)
   }
 
   public static createCfg(name: string, data: { [key: string]: string }): LocalStore {
     return new LocalStore(`eruda-${name}`, data)
   }
 
-  public init($el: $.$) {
-    super.init($el)
+  public init($el: $.$, devTools: DevTools) {
+    super.init($el, devTools)
 
     const el = $el.get(0) as HTMLElement
     this._setting = new LunaSetting(el)
