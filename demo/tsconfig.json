@@ -5,7 +5,6 @@
     "rootDir": ".",
     "sourceMap": true,
     "baseUrl": ".",
-    "paths": {}
   },
   "include": [
     "client.ts",

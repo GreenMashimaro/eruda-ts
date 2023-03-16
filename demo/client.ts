@@ -1,6 +1,11 @@
+// eslint-disable-next-line @typescript-eslint/triple-slash-reference
 /// <reference path="../typings/eruda.d.ts"/>
 
-import { zzn1 } from '../out/src/index'
+import { Eruda } from '../out/src/index'
 
-const res = zzn1('test')
-console.log('zzn res:', res)
+const el = document.createElement('div')
+document.body.appendChild(el)
+const eruda = new Eruda()
+eruda.init({
+  container: el,
+})

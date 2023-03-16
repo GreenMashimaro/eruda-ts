@@ -7,7 +7,7 @@
       "es2016.Array.Include"
     ],
     "outDir": "./out",
-    "baseUrl": "..",
+    "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"],
     },
@@ -16,6 +16,7 @@
   },
   "include": [
     "./src/**/*",
+    "./typings/eruda.d.ts",
     "./typings/declaration.d.ts"
   ]
 }

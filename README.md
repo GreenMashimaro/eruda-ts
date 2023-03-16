@@ -13,3 +13,9 @@ pnpm run start
 // Monitor file changes and rebuild
 pnpm run watch
 ```
+
+# function
+
+- [ ] useShadowDom
+- [ ] DI
+- [ ] Logger
