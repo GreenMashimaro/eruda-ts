@@ -1,16 +1,29 @@
 import { Eruda as ErudaApi, IErudaOptions } from 'eruda'
 import extend from 'licia/extend'
 import $ from 'licia/$'
+import { DevTools } from '@/DevTools'
+import { deleteStyle, evalCss } from './lib/evalCss'
+import StyleScss from '@/style/style.scss'
 
 export class Eruda implements ErudaApi {
-  private _$el: $.$ | null = null
+  private _$el: $.$
+  private _devTools: DevTools
+  private _styleEl: HTMLElement | null = null
 
-  init(options: IErudaOptions) {
+  constructor(options: IErudaOptions) {
+    this._$el = $(options.container)
+
     this._initContainer(options.container)
     this._initStyle()
+    this._devTools = this._initDevTools()
   }
 
-  _initContainer(container?: HTMLElement) {
+  public dispose(): void {
+    this._devTools.dispose()
+    deleteStyle(this._styleEl)
+  }
+
+  private _initContainer(container?: HTMLElement) {
     if (!container) {
       container = document.createElement('div')
       document.documentElement.appendChild(container)
@@ -30,11 +43,17 @@ export class Eruda implements ErudaApi {
     this._$el = $(el)
   }
 
-  _initStyle() {
+  private _initStyle() {
     const className = 'eruda-style-container'
     const $el = this._$el
     if (!$el) return
 
     $el.append(`<div class="${className}"></div>`)
+
+    this._styleEl = evalCss(StyleScss)
+  }
+
+  private _initDevTools() {
+    return new DevTools(this._$el, { theme: 'Light' })
   }
 }

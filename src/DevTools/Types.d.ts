@@ -1,3 +1,5 @@
+import { Theme } from '@/lib/Types'
+
 export interface IDevToolOptions {
-  theme: 'Dark' | 'Light'
+  theme: Theme
 }

@@ -35,13 +35,13 @@ module.exports = {
       {
         test: /\.tsx?$/,
         use: 'ts-loader',
-        exclude: /node_modules/
+        exclude: /node_modules/,
       },
       {
         test: /\.js$/,
-        use: ["source-map-loader"],
-        enforce: "pre",
-        exclude: /node_modules/
+        use: ['source-map-loader'],
+        enforce: 'pre',
+        exclude: /node_modules/,
       },
       {
         test: /\.scss$/,
@@ -52,27 +52,27 @@ module.exports = {
         exclude: /luna-dom-highlighter/,
         use: ['css-loader', postcssLoader],
       },
-    ]
+    ],
   },
   resolve: {
-    modules: [
-      'node_modules',
-      path.resolve(__dirname, '..'),
-    ],
-    extensions: [ '.tsx', '.ts', '.js' ],
+    modules: ['node_modules', path.resolve(__dirname, '..')],
+    alias: {
+      '@': path.resolve(__dirname, '..', 'out/src/'),
+    },
+    extensions: ['.tsx', '.ts', '.js'],
     fallback: {
       // The ligature modules contains fallbacks for node environments, we never want to browserify them
       stream: false,
       util: false,
       os: false,
       path: false,
-      fs: false
-    }
+      fs: false,
+    },
   },
   output: {
     filename: 'client-bundle.js',
-    path: path.resolve(__dirname, 'dist')
+    path: path.resolve(__dirname, 'dist'),
   },
   mode: 'development',
-  watch: true
-};
+  watch: true,
+}

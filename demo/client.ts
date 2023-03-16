@@ -5,7 +5,6 @@ import { Eruda } from '../out/src/index'
 
 const el = document.createElement('div')
 document.body.appendChild(el)
-const eruda = new Eruda()
-eruda.init({
+new Eruda({
   container: el,
 })

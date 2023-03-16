@@ -5,7 +5,7 @@
 /// <reference lib="dom"/>
 declare module 'eruda' {
   export class Eruda implements IDisposable {
-    init(options: IErudaOptions): void
+    constructor(options: IErudaOptions)
 
     dispose(): void
   }
