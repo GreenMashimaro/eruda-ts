@@ -6,6 +6,8 @@ import DevToolsScss from './DevTools.scss'
 import { deleteStyle, evalCss } from '@/lib/evalCss'
 import { classPrefix as c } from '@/lib/util'
 import $ from 'licia/$'
+import LunaTab from 'luna-tab'
+import { Tool } from './Tool'
 
 export class DevTools extends Emitter implements IDisposable {
   private $container: $.$
@@ -14,6 +16,7 @@ export class DevTools extends Emitter implements IDisposable {
   private _$el: $.$
   private _$tools: $.$
   private _isShow = true // zzn
+  private _tab!: LunaTab
 
   constructor($container: $.$, options: IDevToolOptions) {
     super()
@@ -25,6 +28,8 @@ export class DevTools extends Emitter implements IDisposable {
     const { $el, $tools } = this._initTpl()
     this._$el = $el
     this._$tools = $tools
+
+    this._initTab()
   }
 
   public show() {
@@ -42,6 +47,19 @@ export class DevTools extends Emitter implements IDisposable {
 
   public togger() {
     // TODO
+  }
+
+  public add(tool: Tool) {
+    console.log('zzn ssdsdadd setting~')
+    const name = tool.name
+
+    const $nameEl = this._$tools.find(`.${c(name)}.${c('tool')}`)
+    tool.init($nameEl)
+
+    this._tab.append({
+      id: name,
+      title: name,
+    })
   }
 
   public dispose(): void {
@@ -72,6 +90,15 @@ export class DevTools extends Emitter implements IDisposable {
       $el,
       $tools: $el.find(c('.tools')),
     }
+  }
+
+  private _initTab() {
+    const tabEl = this._$el.find(c('.tab')).get(0) as HTMLElement
+    const lunaTab = new LunaTab(tabEl, {
+      height: 40,
+    })
+    this._tab = lunaTab
+    lunaTab.on('select', (id: string) => this.showTool(id))
   }
 
   private _setTransparency(opacity: number) {

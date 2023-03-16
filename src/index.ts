@@ -5,6 +5,7 @@ import { DevTools } from '@/DevTools'
 import { deleteStyle, evalCss } from './lib/evalCss'
 import StyleScss from '@/style/style.scss'
 import { emitter, EmitterEvent } from '@/lib/emitter'
+import { Settings } from './Settings/Settings'
 
 export class Eruda implements ErudaApi {
   private _$el: $.$
@@ -15,6 +16,8 @@ export class Eruda implements ErudaApi {
   constructor(options: IErudaOptions) {
     this._$el = $(options.container)
 
+    this._registerListener()
+
     this._initContainer(options.container)
     this._initStyle()
 
@@ -22,7 +25,7 @@ export class Eruda implements ErudaApi {
     devTools.initCfg()
     this._devTools = devTools
 
-    this._registerListener()
+    this._initSettings()
 
     emitter.emit(EmitterEvent.SHOW)
   }
@@ -40,6 +43,16 @@ export class Eruda implements ErudaApi {
     deleteStyle(this._styleEl)
 
     this._unregisterListener()
+  }
+
+  private _registerListener() {
+    this._showListener = (name: string) => this.show(name)
+
+    emitter.on(EmitterEvent.SHOW, this._showListener)
+  }
+
+  private _unregisterListener() {
+    emitter.off(EmitterEvent.SHOW, this._showListener)
   }
 
   private _initContainer(container?: HTMLElement) {
@@ -76,13 +89,10 @@ export class Eruda implements ErudaApi {
     return new DevTools(this._$el, { theme: 'Light' })
   }
 
-  private _registerListener() {
-    this._showListener = (name: string) => this.show(name)
+  private _initSettings() {
+    const devTools = this._devTools
+    const settings = new Settings()
 
-    emitter.on(EmitterEvent.SHOW, this._showListener)
-  }
-
-  private _unregisterListener() {
-    emitter.off(EmitterEvent.SHOW, this._showListener)
+    devTools.add(settings)
   }
 }

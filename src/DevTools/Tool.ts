@@ -1,7 +1,8 @@
 import $ from 'licia/$'
 
-export default class Tools {
-  private _$el: $.$ = $('<div />')
+export class Tool {
+  public name = ''
+  private _$el!: $.$
 
   public init($el: $.$) {
     this._$el = $el
