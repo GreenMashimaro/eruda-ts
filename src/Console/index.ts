@@ -1,6 +1,6 @@
 import { DevTools } from '@/DevTools'
 import { Tool } from '@/DevTools/Tool'
-import { deleteStyle, evalCss } from '@/lib/evalCss'
+import { destroyStyle, evalCss } from '@/lib/evalCss'
 import { IDisposable } from 'eruda'
 import $ from 'licia/$'
 import { classPrefix as c } from '@/lib/util'
@@ -17,7 +17,7 @@ export class Console extends Tool implements IDisposable {
   }
 
   public dispose(): void {
-    deleteStyle(this._cssEl)
+    destroyStyle(this._cssEl)
   }
 
   public init($el: $.$, devTools: DevTools) {

@@ -4,7 +4,7 @@ import each from 'licia/each'
 import { IDisposable } from 'eruda'
 import { IDevToolOptions } from './Types'
 import DevToolsScss from './DevTools.scss'
-import { deleteStyle, evalCss } from '@/lib/evalCss'
+import { destroyStyle, evalCss } from '@/lib/evalCss'
 import { classPrefix as c } from '@/lib/util'
 import $ from 'licia/$'
 import LunaTab from 'luna-tab'
@@ -12,9 +12,10 @@ import { Tool } from './Tool'
 import logger from '@/lib/logger'
 
 export class DevTools extends Emitter implements IDisposable {
+  private _cssEl: HTMLElement = evalCss(DevToolsScss)
+
   private $container: $.$
   private _defCfg: IDevToolOptions
-  private _cssEl: HTMLElement = evalCss(DevToolsScss)
   private _$el: $.$
   private _$tools: $.$
   private _isShow = true // zzn
@@ -38,6 +39,17 @@ export class DevTools extends Emitter implements IDisposable {
   public show() {
     this._$el.show()
     this._isShow = true
+    this.emit('show')
+  }
+
+  public hide() {
+    this._$el.hide()
+    this._isShow = false
+    this.emit('hide')
+  }
+
+  public toggle() {
+    this._isShow ? this.hide() : this.show()
   }
 
   public showTool(name: string) {
@@ -52,8 +64,6 @@ export class DevTools extends Emitter implements IDisposable {
     }
 
     let lastTool: Tool | null = null
-    console.log('zzn tools:', tools)
-
     each(tools, (toolItem) => {
       if (toolItem.active) {
         lastTool = toolItem
@@ -65,10 +75,6 @@ export class DevTools extends Emitter implements IDisposable {
     tool.show()
 
     this.emit('showTool', name, lastTool)
-  }
-
-  public hide() {
-    this._isShow = false
   }
 
   public togger() {
@@ -104,7 +110,7 @@ export class DevTools extends Emitter implements IDisposable {
   }
 
   public dispose(): void {
-    deleteStyle(this._cssEl)
+    destroyStyle(this._cssEl)
   }
 
   public initCfg() {

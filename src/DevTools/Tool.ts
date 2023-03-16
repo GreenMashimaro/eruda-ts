@@ -22,7 +22,6 @@ export class Tool implements ITool {
   }
 
   public hide() {
-    console.log('zzn hide this._$el:', this._$el)
     this._$el.hide()
   }
 

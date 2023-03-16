@@ -2,11 +2,13 @@ import { Eruda as ErudaApi, IErudaOptions } from 'eruda'
 import extend from 'licia/extend'
 import $ from 'licia/$'
 import { DevTools } from '@/DevTools'
-import { deleteStyle, evalCss } from './lib/evalCss'
+import { destroyStyle, evalCss } from './lib/evalCss'
 import { emitter, EmitterEvent } from '@/lib/emitter'
 
-import StyleScss from '@/style/style.scss'
+import ResetScss from '@/style/reset.scss'
+import IconCss from '@/style/icon.css'
 import LunaTabCss from 'luna-tab/luna-tab.css'
+import StyleScss from '@/style/style.scss'
 
 import { Settings } from '@/Settings'
 import { Console } from '@/Console'
@@ -16,6 +18,7 @@ import { Resources } from '@/Resources'
 import { Sources } from '@/Sources'
 import { Info } from '@/Info'
 import { Snippets } from '@/Snippets'
+import { EntryBtn } from './EntryBtn'
 
 export class Eruda implements ErudaApi {
   private _$el: $.$
@@ -31,6 +34,8 @@ export class Eruda implements ErudaApi {
     this._initContainer(options.container)
     this._initStyle()
 
+    this._initEntryBtn()
+
     const devTools = this._initDevTools()
     devTools.initCfg()
     this._devTools = devTools
@@ -42,9 +47,6 @@ export class Eruda implements ErudaApi {
 
   public show(name: string) {
     if (name) {
-      // zzn
-      // eslint-disable-next-line no-debugger
-      debugger
       this._devTools.showTool(name)
     } else {
       this._devTools.show()
@@ -53,7 +55,7 @@ export class Eruda implements ErudaApi {
 
   public dispose(): void {
     this._devTools.dispose()
-    deleteStyle(this._styleEl)
+    destroyStyle(this._styleEl)
 
     this._unregisterListener()
   }
@@ -95,8 +97,13 @@ export class Eruda implements ErudaApi {
 
     $el.append(`<div class="${className}"></div>`)
 
-    const styles = [LunaTabCss, StyleScss]
+    const styles = [ResetScss, IconCss, LunaTabCss, StyleScss]
     this._styleEl = evalCss(styles.join(' '))
+  }
+
+  private _initEntryBtn() {
+    const entryBtn = new EntryBtn(this._$el)
+    entryBtn.on('click', () => this._devTools.toggle())
   }
 
   private _initDevTools() {
