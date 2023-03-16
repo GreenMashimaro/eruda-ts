@@ -3,23 +3,23 @@ import $ from 'licia/$'
 export default class Tools {
   private _$el: $.$ = $('<div />')
 
-  init($el: $.$) {
+  public init($el: $.$) {
     this._$el = $el
   }
 
-  show() {
+  public show() {
     this._$el.show()
 
     return this
   }
 
-  hide() {
+  public hide() {
     this._$el.hide()
 
     return this
   }
 
-  destroy() {
+  public destroy() {
     this._$el.remove()
   }
 }

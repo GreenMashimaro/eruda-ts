@@ -28,7 +28,12 @@ export class DevTools extends Emitter implements IDisposable {
   }
 
   public show() {
+    this._$el.show()
     this._isShow = true
+  }
+
+  public showTool(name: string) {
+    // TODO
   }
 
   public hide() {
