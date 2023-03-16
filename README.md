@@ -19,3 +19,4 @@ pnpm run watch
 - [ ] useShadowDom
 - [ ] DI
 - [ ] Logger
+- [ ] support config

@@ -15,7 +15,10 @@ export class Eruda implements ErudaApi {
 
     this._initContainer(options.container)
     this._initStyle()
-    this._devTools = this._initDevTools()
+
+    const devTools = this._initDevTools()
+    devTools.initCfg()
+    this._devTools = devTools
   }
 
   public dispose(): void {

@@ -13,6 +13,7 @@ export class DevTools extends Emitter implements IDisposable {
   private _cssEl: HTMLElement
   private _$el: $.$
   private _$tools: $.$
+  private _isShow = true // zzn
 
   constructor($container: $.$, options: IDevToolOptions) {
     super()
@@ -26,25 +27,29 @@ export class DevTools extends Emitter implements IDisposable {
     this._$tools = $tools
   }
 
-  show() {
+  public show() {
+    this._isShow = true
+  }
+
+  public hide() {
+    this._isShow = false
+  }
+
+  public togger() {
     // TODO
   }
 
-  hide() {
-    // TODO
-  }
-
-  togger() {
-    // TODO
-  }
-
-  dispose(): void {
+  public dispose(): void {
     deleteStyle(this._cssEl)
+  }
+
+  public initCfg() {
+    this._setDisplaySize(50)
+    this._setTransparency(0.9)
   }
 
   private _initTpl() {
     const $container = this.$container
-
     $container.append(
       c(`
         <div class="dev-tools">
@@ -56,12 +61,21 @@ export class DevTools extends Emitter implements IDisposable {
         </div>
       `)
     )
-
-    const $el = $container.find(c('dev-tools'))
+    const $el = $container.find(c('.dev-tools'))
 
     return {
       $el,
       $tools: $el.find(c('.tools')),
     }
+  }
+
+  private _setTransparency(opacity: number) {
+    if (this._isShow) {
+      this._$el.css({ opacity })
+    }
+  }
+
+  private _setDisplaySize(height: number) {
+    this._$el.css({ height: `${height}%` })
   }
 }

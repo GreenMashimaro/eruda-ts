@@ -38,5 +38,16 @@ module.exports = {
         memberSyntaxSortOrder: ['none', 'all', 'multiple', 'single'],
       },
     ],
+    // 在类属性和方法上需要显式可访问性修饰符
+    '@typescript-eslint/explicit-member-accessibility': [
+      'error',
+      {
+        accessibility: 'explicit',
+        overrides: {
+          constructors: 'no-public',
+          methods: 'explicit',
+        },
+      },
+    ],
   },
 }
