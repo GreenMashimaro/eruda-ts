@@ -69,8 +69,7 @@ export class EntryBtn extends Emitter implements IDisposable {
     this._oldX = pxToNum($el.css('left'))
     this._oldY = pxToNum($el.css('top'))
 
-    const zn = this.__onDragMove.bind(this)
-    $document.on(drag('move'), zn)
+    $document.on(drag('move'), this._onDragMove)
     $document.on(drag('end'), this._onDragEnd)
   }
 

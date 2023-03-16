@@ -14,7 +14,7 @@ pnpm run start
 pnpm run watch
 ```
 
-# function
+# Function to be implemented
 
 - [ ] useShadowDom
 - [ ] DI

@@ -37,6 +37,6 @@ export class Console extends Tool implements IDisposable {
   }
 
   private _bindEvent() {
-    // TOOD
+    // TODO
   }
 }
