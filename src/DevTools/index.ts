@@ -1,4 +1,4 @@
-import { Settings } from '@/Settings';
+import { Settings } from '@/Settings'
 import Emitter from 'licia/Emitter'
 import extend from 'licia/extend'
 import each from 'licia/each'

@@ -1,13 +1,18 @@
+import { IDisposable } from 'eruda'
 import { DevTools } from '@/DevTools'
 import { Tool } from '@/DevTools/Tool'
 import $ from 'licia/$'
 import { classPrefix as c } from '@/lib/util'
 
-export class Elements extends Tool {
+export class Elements extends Tool implements IDisposable {
   constructor() {
     super('elements')
 
     this._bindEvent()
+  }
+
+  public dispose(): void {
+    throw new Error('Method not implemented.')
   }
 
   public init($el: $.$, devTools: DevTools) {
