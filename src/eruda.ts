@@ -10,6 +10,7 @@ import IconCss from '@/style/icon.css'
 import LunaTabCss from 'luna-tab/luna-tab.css'
 import LunaSettingCss from 'luna-setting/luna-setting.css'
 import lunaDomViewerCss from 'luna-dom-viewer/luna-dom-viewer.css'
+import lunaDataGridCss from 'luna-data-grid/luna-data-grid.css'
 import StyleScss from '@/style/style.scss'
 
 import { Settings } from '@/Settings'
@@ -107,6 +108,7 @@ export class Eruda implements ErudaApi {
       LunaTabCss,
       LunaSettingCss,
       lunaDomViewerCss,
+      lunaDataGridCss,
       StyleScss,
     ]
     this._styleEl = evalCss(styles.join(' '))

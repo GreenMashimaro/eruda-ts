@@ -23,7 +23,10 @@ const showInfo = cssSupports(
 )
 const hasTouchSupport = 'ontouchstart' in root
 
-const css = lunaDomHighlighterCss.toString()
+const css = lunaDomHighlighterCss.toString().replace(
+  '/*# sourceMappingURL=luna-dom-highlighter.css.map*/',
+  ''
+)
 
 export function enable() {
   if (isEnable) {

@@ -40,6 +40,8 @@ export const enable = once(function () {
   const origOpen: any = winXhrProto.open
   const origSetRequestHeader: any = winXhrProto.setRequestHeader
 
+  console.log('zzn enable~')
+
   winXhrProto.open = function (method: string, url: string) {
     if (!isValidUrl(url)) {
       return origOpen.apply(this, arguments)

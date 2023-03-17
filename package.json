@@ -54,6 +54,7 @@
   "dependencies": {
     "html2canvas": "^1.4.1",
     "licia": "^1.38.0",
+    "luna-data-grid": "^0.4.3",
     "luna-dom-highlighter": "^1.0.2",
     "luna-dom-viewer": "^1.2.3",
     "luna-setting": "^0.7.0",

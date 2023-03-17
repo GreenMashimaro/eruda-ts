@@ -23,6 +23,7 @@ specifiers:
   jest: ^29.5.0
   jest-scss-transform: ^1.0.3
   licia: ^1.38.0
+  luna-data-grid: ^0.4.3
   luna-dom-highlighter: ^1.0.2
   luna-dom-viewer: ^1.2.3
   luna-setting: ^0.7.0
@@ -46,6 +47,7 @@ specifiers:
 dependencies:
   html2canvas: 1.4.1
   licia: 1.38.0
+  luna-data-grid: 0.4.3
   luna-dom-highlighter: 1.0.2
   luna-dom-viewer: 1.2.3
   luna-setting: 0.7.0
@@ -4176,6 +4178,12 @@ packages:
     engines: {node: '>=10'}
     dependencies:
       yallist: 4.0.0
+
+  /luna-data-grid/0.4.3:
+    resolution: {integrity: sha512-iSfY9RakHfSi9cVk3rBdqsi0oztOqLHu0udZsY3BsOVntKJg4/AK/rgZvFQK2TYdwOS7HoLPPZlp91/EyIL69Q==}
+    dependencies:
+      licia: 1.38.0
+    dev: false
 
   /luna-dom-highlighter/1.0.2:
     resolution: {integrity: sha512-yRESdOjYAW5OKq9oiEHJihhkRQBYg9zFKRVR4Yq8AJsGpoWAMhNX4mHJM0o8qIn4rR6s70/DowGsg6/RWWSRZw==}
