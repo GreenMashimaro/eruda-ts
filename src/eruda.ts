@@ -9,6 +9,7 @@ import ResetScss from '@/style/reset.scss'
 import IconCss from '@/style/icon.css'
 import LunaTabCss from 'luna-tab/luna-tab.css'
 import LunaSettingCss from 'luna-setting/luna-setting.css'
+import lunaDomViewerCss from 'luna-dom-viewer/luna-dom-viewer.css'
 import StyleScss from '@/style/style.scss'
 
 import { Settings } from '@/Settings'
@@ -100,7 +101,14 @@ export class Eruda implements ErudaApi {
 
     $el.append(`<div class="${className}"></div>`)
 
-    const styles = [ResetScss, IconCss, LunaTabCss, LunaSettingCss, StyleScss]
+    const styles = [
+      ResetScss,
+      IconCss,
+      LunaTabCss,
+      LunaSettingCss,
+      lunaDomViewerCss,
+      StyleScss,
+    ]
     this._styleEl = evalCss(styles.join(' '))
   }
 

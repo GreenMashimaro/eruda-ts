@@ -10,6 +10,7 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"],
+      "chobitsu/*": ["src/chobitsu/*"]
     },
     "types": ["jest"],
     "esModuleInterop": true
@@ -17,6 +18,6 @@
   "include": [
     "./src/**/*",
     "./typings/eruda.d.ts",
-    "./typings/declaration.d.ts"
+    "./typings/declaration.d.ts",
   ]
 }

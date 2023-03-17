@@ -58,6 +58,7 @@ module.exports = {
     modules: ['node_modules', path.resolve(__dirname, '..')],
     alias: {
       '@': path.resolve(__dirname, '..', 'out/src/'),
+      'chobitsu/*': path.resolve(__dirname, '..', 'out/src/chobitsu/'),
     },
     extensions: ['.tsx', '.ts', '.js'],
     fallback: {
