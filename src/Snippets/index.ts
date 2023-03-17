@@ -9,9 +9,11 @@ import { Tool } from '@/DevTools/Tool'
 import defSnippets from './defSnippets'
 import { classPrefix as c } from '@/lib/util'
 import SnippetsScss from './Snippets.scss'
+import SearchTextScss from './SearchText.scss'
 
 export class Snippets extends Tool implements IDisposable {
-  private _cssEl: HTMLElement = evalCss(SnippetsScss)
+  private _cssElSnippets: HTMLElement = evalCss(SnippetsScss)
+  private _cssSearchText: HTMLElement = evalCss(SearchTextScss)
   private _snippets: IDefSnippet[] = []
 
   constructor() {
@@ -19,7 +21,8 @@ export class Snippets extends Tool implements IDisposable {
   }
 
   public dispose(): void {
-    destroyStyle(this._cssEl)
+    destroyStyle(this._cssElSnippets)
+    destroyStyle(this._cssSearchText)
   }
 
   public init($el: $.$, devTools: DevTools) {
