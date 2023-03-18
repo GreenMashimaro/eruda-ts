@@ -6,7 +6,7 @@ eruda Typescript version
 
 https://github.com/liriliri/eruda
 
-# local development
+# Local development
 
 ```
 pnpm install
