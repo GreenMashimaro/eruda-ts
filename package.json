@@ -1,7 +1,7 @@
 {
-  "name": "eruda",
+  "name": "eruda-ts",
   "version": "1.0.0",
-  "description": "",
+  "description": "eruda typescript version",
   "main": "index.js",
   "scripts": {
     "start": "node demo/start",
