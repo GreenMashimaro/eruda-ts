@@ -1,5 +1,7 @@
 # eruda ts
 
+eruda Typescript version
+
 Project original address： https://github.com/liriliri/eruda
 
 # local development
