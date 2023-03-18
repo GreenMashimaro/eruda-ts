@@ -1,4 +1,4 @@
-# learn eruda
+# eruda ts
 
 Project original address： https://github.com/liriliri/eruda
 
