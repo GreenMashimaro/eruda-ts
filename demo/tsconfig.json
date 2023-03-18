@@ -5,6 +5,7 @@
     "rootDir": ".",
     "sourceMap": true,
     "baseUrl": ".",
+    "esModuleInterop": true
   },
   "include": [
     "client.ts",

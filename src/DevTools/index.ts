@@ -11,6 +11,7 @@ import $ from 'licia/$'
 import LunaTab from 'luna-tab'
 import { Tool } from './Tool'
 import logger from '@/lib/logger'
+import LunaNotification from 'luna-notification'
 
 export class DevTools extends Emitter implements IDisposable {
   private _cssEl: HTMLElement = evalCss(DevToolsScss)
@@ -23,6 +24,7 @@ export class DevTools extends Emitter implements IDisposable {
   private _tab!: LunaTab
   private _curToolName = ''
   private _tools: { [key: string]: Tool } = {}
+  private _notification!: LunaNotification
 
   constructor($container: $.$, options: IDevToolOptions) {
     super()
@@ -34,6 +36,7 @@ export class DevTools extends Emitter implements IDisposable {
     this._$el = $el
     this._$tools = $tools
 
+    this._initNotification()
     this._initTab()
   }
 
@@ -119,6 +122,10 @@ export class DevTools extends Emitter implements IDisposable {
     this._setTransparency(0.9)
   }
 
+  public notice(content: string) {
+    this._notification.notify(content)
+  }
+
   private _initTpl() {
     const $container = this.$container
     $container.append(
@@ -157,5 +164,15 @@ export class DevTools extends Emitter implements IDisposable {
 
   private _setDisplaySize(height: number) {
     this._$el.css({ height: `${height}%` })
+  }
+
+  private _initNotification() {
+    const notificationEl = this._$el.find(c('.notification')).get(0) as HTMLElement
+    this._notification = new LunaNotification(notificationEl, {
+      position: {
+        x: 'center',
+        y: 'top',
+      },
+    })
   }
 }

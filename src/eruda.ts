@@ -12,6 +12,7 @@ import LunaSettingCss from 'luna-setting/luna-setting.css'
 import lunaDomViewerCss from 'luna-dom-viewer/luna-dom-viewer.css'
 import lunaDataGridCss from 'luna-data-grid/luna-data-grid.css'
 import lunaModalCss from 'luna-modal/luna-modal.css'
+import lunaNotificationScss from 'luna-notification/luna-notification.css'
 import StyleScss from '@/style/style.scss'
 
 import { Settings } from '@/Settings'
@@ -111,6 +112,7 @@ export class Eruda implements ErudaApi {
       lunaDomViewerCss,
       lunaDataGridCss,
       lunaModalCss,
+      lunaNotificationScss,
       StyleScss,
     ]
     this._styleEl = evalCss(styles.join(' '))
