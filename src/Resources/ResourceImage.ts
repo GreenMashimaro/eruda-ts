@@ -1,3 +1,4 @@
+import escape from 'licia/escape'
 import $ from 'licia/$'
 import contain from 'licia/contain'
 import isEmpty from 'licia/isEmpty'
@@ -51,10 +52,11 @@ export class ResourceImage {
     const imageState = getState('image', nImageData.length)
     let imageDataHtml = '<li>Empty</li>'
     if (!isEmpty(nImageData)) {
-      imageDataHtml = map(nImageData, (image) => {
+      imageDataHtml = map(nImageData, (_imageUrl) => {
+        const imageUrl = escape(_imageUrl)
         return `
           <li class="${c('image')}">
-            <img src="${escape(image)}" data-exclude="true" class="${c('img-link')}"/>
+            <img src="${imageUrl}" data-exclude="true" class="${c('img-link')}"/>
           </li>`
       }).join('')
     }
