@@ -22,6 +22,7 @@ function startServer() {
 
   app.use('/dist', express.static(__dirname + '/dist'))
   app.use('/src', express.static(__dirname + '/src'))
+  app.use('/static', express.static(__dirname + '/static'))
 
   const port = process.env.PORT || 3003,
     host = os.platform() === 'win32' ? '127.0.0.1' : '0.0.0.0'
