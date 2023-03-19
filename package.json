@@ -63,7 +63,7 @@
     "luna-tab": "^0.1.3",
     "luna-tabs": "^0.1.0",
     "node-pty": "^0.10.1",
-    "source-map-loader": "^3.0.0",
+    "source-map-loader": "^4.0.0",
     "ts-loader": "^9.1.2",
     "typescript": "^4.9.5"
   },
