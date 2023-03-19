@@ -10,6 +10,7 @@ import { ResourceImage } from './ResourceImage'
 import { ResourceIframe } from './ResourceIframe'
 import { ResourceStyleSheet } from './ResourceStyleSheet'
 import { ResourceLocalStorage } from './ResourceLocalStorage'
+import { ResourceSessionStorage } from './ResourceSessionStorage'
 
 export class Resources extends Tool implements IDisposable {
   private _cssEl: HTMLElement = evalCss(ResourcesScss)
@@ -19,6 +20,7 @@ export class Resources extends Tool implements IDisposable {
   private _resourceIframe!: ResourceIframe
   private _resourceStyleSheet!: ResourceStyleSheet
   private _resourceLocalStorage!: ResourceLocalStorage
+  private _resourceSessionStorage!: ResourceSessionStorage
 
   private _$localStorage!: $.$
   private _$sessionStorage!: $.$
@@ -48,6 +50,10 @@ export class Resources extends Tool implements IDisposable {
     this._resourceIframe = new ResourceIframe(this._$iframe)
     this._resourceStyleSheet = new ResourceStyleSheet(this._$stylesheet)
     this._resourceLocalStorage = new ResourceLocalStorage(this._$localStorage, devTools)
+    this._resourceSessionStorage = new ResourceSessionStorage(
+      this._$sessionStorage,
+      devTools
+    )
 
     this.refresh()
   }
@@ -58,6 +64,7 @@ export class Resources extends Tool implements IDisposable {
     this._refreshIframe()
     this._refreshStyleSheet()
     this._refreshLocalStorage()
+    this._refreshSessionStorage()
   }
 
   private _initTpl() {
@@ -101,6 +108,10 @@ export class Resources extends Tool implements IDisposable {
 
   private _refreshLocalStorage() {
     this._resourceLocalStorage.refresh()
+  }
+
+  private _refreshSessionStorage() {
+    this._resourceSessionStorage.refresh()
   }
 
   private _bindEvent() {
