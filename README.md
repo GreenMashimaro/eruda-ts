@@ -24,3 +24,4 @@ pnpm run watch
 - [ ] DI
 - [ ] Logger
 - [ ] support config
+- [ ] hideErudaSetting

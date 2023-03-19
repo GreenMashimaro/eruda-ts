@@ -26,6 +26,9 @@ export class ResourceCookie {
   private __triggerEventCopyCookie = this._triggerEventCopyCookie.bind(this)
   private __triggerEventFilter = this._triggerEventFilter.bind(this)
 
+  private __triggerEventDataGridSelect = this._triggerEventDataGridSelect.bind(this)
+  private __triggerEventDataGridDeselect = this._triggerEventDataGridDeselect.bind(this)
+
   constructor($container: $.$, devTools: DevTools) {
     this._$container = $container
     this._devTools = devTools
@@ -129,19 +132,23 @@ export class ResourceCookie {
 
   private _bindEventDataGrid() {
     this._dataGrid
-      .on('select', (node: { data: { key: string } }) => {
-        this._selectCookieKey = node.data.key
-        this._updateButtons()
-      })
-      .on('deselect', () => {
-        this._selectCookieKey = null
-        this._updateButtons()
-      })
+      .on('select', this.__triggerEventDataGridSelect)
+      .on('deselect', this.__triggerEventDataGridDeselect)
+  }
+
+  private _triggerEventDataGridSelect(node: { data: { key: string } }) {
+    this._selectCookieKey = node.data.key
+    this._updateButtons()
+  }
+
+  private _triggerEventDataGridDeselect() {
+    this._selectCookieKey = null
+    this._updateButtons()
   }
 
   private _triggerEventRefreshCookie() {
-    this._devTools.notice('Refreshed')
     this.refresh()
+    this._devTools.notice('Refreshed')
   }
 
   private _triggerEventClearCookie() {

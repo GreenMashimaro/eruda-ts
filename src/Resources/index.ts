@@ -1,20 +1,15 @@
-import { getState, isImg, setState } from './util'
 import { destroyStyle, evalCss } from '@/lib/evalCss'
 import { IDisposable } from 'eruda'
 import { DevTools } from '@/DevTools'
 import { Tool } from '@/DevTools/Tool'
 import $ from 'licia/$'
 import ResourcesScss from './Resources.scss'
-import contain from 'licia/contain'
-import unique from 'licia/unique'
-import isEmpty from 'licia/isEmpty'
-import map from 'licia/map'
-import escape from 'licia/escape'
 import { classPrefix as c } from '@/lib/util'
 import { ResourceCookie } from './ResourceCookie'
 import { ResourceImage } from './ResourceImage'
 import { ResourceIframe } from './ResourceIframe'
 import { ResourceStyleSheet } from './ResourceStyleSheet'
+import { ResourceLocalStorage } from './ResourceLocalStorage'
 
 export class Resources extends Tool implements IDisposable {
   private _cssEl: HTMLElement = evalCss(ResourcesScss)
@@ -23,6 +18,7 @@ export class Resources extends Tool implements IDisposable {
   private _resourceImage!: ResourceImage
   private _resourceIframe!: ResourceIframe
   private _resourceStyleSheet!: ResourceStyleSheet
+  private _resourceLocalStorage!: ResourceLocalStorage
 
   private _$localStorage!: $.$
   private _$sessionStorage!: $.$
@@ -51,6 +47,7 @@ export class Resources extends Tool implements IDisposable {
     this._resourceImage = new ResourceImage(this._$image)
     this._resourceIframe = new ResourceIframe(this._$iframe)
     this._resourceStyleSheet = new ResourceStyleSheet(this._$stylesheet)
+    this._resourceLocalStorage = new ResourceLocalStorage(this._$localStorage, devTools)
 
     this.refresh()
   }
@@ -60,6 +57,7 @@ export class Resources extends Tool implements IDisposable {
     this._refreshImage()
     this._refreshIframe()
     this._refreshStyleSheet()
+    this._refreshLocalStorage()
   }
 
   private _initTpl() {
@@ -99,6 +97,10 @@ export class Resources extends Tool implements IDisposable {
 
   private _refreshStyleSheet() {
     this._resourceStyleSheet.refresh()
+  }
+
+  private _refreshLocalStorage() {
+    this._resourceLocalStorage.refresh()
   }
 
   private _bindEvent() {
