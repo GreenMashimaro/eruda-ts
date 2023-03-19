@@ -13,12 +13,14 @@ import escape from 'licia/escape'
 import { classPrefix as c } from '@/lib/util'
 import { ResourceCookies } from './ResourceCookies'
 import { ResourceImages } from './ResourceImages'
+import { ResourceIframes } from './ResourceIframes'
 
 export class Resources extends Tool implements IDisposable {
   private _cssEl: HTMLElement = evalCss(ResourcesScss)
 
   private _resourceCookies!: ResourceCookies
   private _resourceImages!: ResourceImages
+  private _resourceIframes!: ResourceIframes
 
   private _$localStorage!: $.$
   private _$sessionStorage!: $.$
@@ -45,6 +47,7 @@ export class Resources extends Tool implements IDisposable {
 
     this._resourceCookies = new ResourceCookies(this._$cookie, devTools)
     this._resourceImages = new ResourceImages(this._$image)
+    this._resourceIframes = new ResourceIframes(this._$iframe)
 
     this.refresh()
   }
@@ -52,6 +55,7 @@ export class Resources extends Tool implements IDisposable {
   public refresh() {
     this._refreshCookie()
     this._refreshImage()
+    this._refreshIframe()
   }
 
   private _initTpl() {
@@ -141,6 +145,10 @@ export class Resources extends Tool implements IDisposable {
     const $image = this._$image
     setState($image, imageState)
     $image.html(imageHtml)
+  }
+
+  private _refreshIframe() {
+    this._resourceIframes.refresh()
   }
 
   private _bindEvent() {
