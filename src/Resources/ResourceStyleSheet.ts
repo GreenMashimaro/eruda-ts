@@ -4,7 +4,7 @@ import $ from 'licia/$'
 import unique from 'licia/unique'
 import { classPrefix as c } from '@/lib/util'
 
-export class ResourceStyleSheets {
+export class ResourceStyleSheet {
   private _$containter: $.$
 
   constructor($container: $.$) {

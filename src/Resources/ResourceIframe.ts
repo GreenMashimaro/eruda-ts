@@ -4,7 +4,7 @@ import isEmpty from 'licia/isEmpty'
 import escape from 'licia/escape'
 import { classPrefix as c } from '@/lib/util'
 
-export class ResourceIframes {
+export class ResourceIframe {
   private _$container: $.$
 
   constructor($container: $.$) {

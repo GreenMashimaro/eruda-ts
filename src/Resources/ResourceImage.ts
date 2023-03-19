@@ -6,7 +6,7 @@ import map from 'licia/map'
 import { classPrefix as c } from '@/lib/util'
 import { getState, isImg, setState } from './util'
 
-export class ResourceImages {
+export class ResourceImage {
   private _$container: $.$
 
   constructor($container: $.$) {

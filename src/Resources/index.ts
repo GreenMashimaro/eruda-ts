@@ -11,18 +11,18 @@ import isEmpty from 'licia/isEmpty'
 import map from 'licia/map'
 import escape from 'licia/escape'
 import { classPrefix as c } from '@/lib/util'
-import { ResourceCookies } from './ResourceCookies'
-import { ResourceImages } from './ResourceImages'
-import { ResourceIframes } from './ResourceIframes'
-import { ResourceStyleSheets } from './ResourceStyleSheets'
+import { ResourceCookie } from './ResourceCookie'
+import { ResourceImage } from './ResourceImage'
+import { ResourceIframe } from './ResourceIframe'
+import { ResourceStyleSheet } from './ResourceStyleSheet'
 
 export class Resources extends Tool implements IDisposable {
   private _cssEl: HTMLElement = evalCss(ResourcesScss)
 
-  private _resourceCookies!: ResourceCookies
-  private _resourceImages!: ResourceImages
-  private _resourceIframes!: ResourceIframes
-  private _resourceStyleSheets!: ResourceStyleSheets
+  private _resourceCookie!: ResourceCookie
+  private _resourceImage!: ResourceImage
+  private _resourceIframe!: ResourceIframe
+  private _resourceStyleSheet!: ResourceStyleSheet
 
   private _$localStorage!: $.$
   private _$sessionStorage!: $.$
@@ -47,10 +47,10 @@ export class Resources extends Tool implements IDisposable {
 
     this._initTpl()
 
-    this._resourceCookies = new ResourceCookies(this._$cookie, devTools)
-    this._resourceImages = new ResourceImages(this._$image)
-    this._resourceIframes = new ResourceIframes(this._$iframe)
-    this._resourceStyleSheets = new ResourceStyleSheets(this._$stylesheet)
+    this._resourceCookie = new ResourceCookie(this._$cookie, devTools)
+    this._resourceImage = new ResourceImage(this._$image)
+    this._resourceIframe = new ResourceIframe(this._$iframe)
+    this._resourceStyleSheet = new ResourceStyleSheet(this._$stylesheet)
 
     this.refresh()
   }
@@ -86,77 +86,19 @@ export class Resources extends Tool implements IDisposable {
   }
 
   private _refreshCookie() {
-    this._resourceCookies.refresh()
+    this._resourceCookie.refresh()
   }
 
   private _refreshImage() {
-    const imageData: string[] = []
-    const performance = window.performance
-
-    if (performance && performance.getEntries) {
-      const entries = performance.getEntries()
-      entries.forEach((entry) => {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-expect-error
-        const initatorType = entry.initatorType
-        const entryName = entry.name
-
-        if (initatorType === 'img' || isImg(entryName)) {
-          if (contain(entryName, 'exclude=true')) {
-            return
-          }
-
-          imageData.push(entryName)
-        }
-      })
-    } else {
-      $('img').each(function (index: number, el: HTMLElement) {
-        const $el = $(el)
-        const src = $el.attr('src')
-
-        if ($el.data('exclude') === 'true') {
-          return
-        }
-
-        imageData.push(src)
-      })
-    }
-
-    const nImageData = unique(imageData) as string[]
-
-    const imageState = getState('image', nImageData.length)
-    let imageDataHtml = '<li>Empty</li>'
-    if (!isEmpty(nImageData)) {
-      imageDataHtml = map(nImageData, (image) => {
-        return `
-          <li class="${c('image')}">
-            <img src="${escape(image)}" data-exclude="true" class="${c('img-link')}"/>
-          </li>`
-      }).join('')
-    }
-
-    const imageHtml = `
-      <h2 class="${c('title')}">
-        Image
-        <div class="${c('btn refresh-image')}">
-          <span class="${c('icon-refresh')}"></span>
-        </div>
-      </h2>
-      <ul class="${c('image-list')}">
-        ${imageDataHtml}
-      </ul>`
-
-    const $image = this._$image
-    setState($image, imageState)
-    $image.html(imageHtml)
+    this._resourceImage.refresh()
   }
 
   private _refreshIframe() {
-    this._resourceIframes.refresh()
+    this._resourceIframe.refresh()
   }
 
   private _refreshStyleSheet() {
-    this._resourceStyleSheets.refresh()
+    this._resourceStyleSheet.refresh()
   }
 
   private _bindEvent() {

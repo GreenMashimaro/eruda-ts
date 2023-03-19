@@ -7,7 +7,7 @@ import LunaDataGrid from 'luna-data-grid'
 import chobitsu from '@/lib/chobitsu'
 import { IResCookie } from './Types'
 
-export class ResourceCookies {
+export class ResourceCookie {
   private _$container: $.$
   private _devTools: DevTools
   private _dataGrid!: LunaDataGrid
