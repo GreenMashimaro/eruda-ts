@@ -11,12 +11,14 @@ import isEmpty from 'licia/isEmpty'
 import map from 'licia/map'
 import escape from 'licia/escape'
 import { classPrefix as c } from '@/lib/util'
-import { Cookie } from './Cookie'
+import { ResourceCookies } from './ResourceCookies'
+import { ResourceImages } from './ResourceImages'
 
 export class Resources extends Tool implements IDisposable {
   private _cssEl: HTMLElement = evalCss(ResourcesScss)
 
-  private _cookie!: Cookie
+  private _resourceCookies!: ResourceCookies
+  private _resourceImages!: ResourceImages
 
   private _$localStorage!: $.$
   private _$sessionStorage!: $.$
@@ -41,7 +43,15 @@ export class Resources extends Tool implements IDisposable {
 
     this._initTpl()
 
-    this._cookie = new Cookie(this._$cookie, devTools)
+    this._resourceCookies = new ResourceCookies(this._$cookie, devTools)
+    this._resourceImages = new ResourceImages(this._$image)
+
+    this.refresh()
+  }
+
+  public refresh() {
+    this._refreshCookie()
+    this._refreshImage()
   }
 
   private _initTpl() {
@@ -67,7 +77,11 @@ export class Resources extends Tool implements IDisposable {
     this._$image = $el.find(c('.image'))
   }
 
-  private refreshImage() {
+  private _refreshCookie() {
+    this._resourceCookies.refresh()
+  }
+
+  private _refreshImage() {
     const imageData: string[] = []
     const performance = window.performance
 

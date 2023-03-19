@@ -7,7 +7,7 @@ import LunaDataGrid from 'luna-data-grid'
 import chobitsu from '@/lib/chobitsu'
 import { IResCookie } from './Types'
 
-export class Cookie {
+export class ResourceCookies {
   private _$container: $.$
   private _devTools: DevTools
   private _dataGrid!: LunaDataGrid
@@ -38,7 +38,7 @@ export class Cookie {
     this._bindEvent()
   }
 
-  public refresh() {
+  public refresh(): void {
     const $container = this._$container
     const dataGrid = this._dataGrid
 
