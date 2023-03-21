@@ -6,15 +6,20 @@ import $ from 'licia/$'
 import LunaDomViewer from 'luna-dom-viewer'
 import { classPrefix as c, isChobitsuEl, isErudaEl } from '@/lib/util'
 import ElementsScss from './Elements.scss'
+import { Detail } from './Detail'
 
 export class Elements extends Tool implements IDisposable {
   private _cssEl: HTMLElement = evalCss(ElementsScss)
+  private _curNode: HTMLElement = document.body
   private _domViewer!: LunaDomViewer
-  private _$detail: $.$ | null = null
-  private _$domViewer: $.$ | null = null
-  private _$control: $.$ | null = null
-  private _$crumbs: $.$ | null = null
-  private _htmlEl: HTMLElement | null = document.documentElement
+  private _detail!: Detail
+
+  private _htmlEl: HTMLElement = document.documentElement
+
+  private _$detail!: $.$
+  private _$domViewer!: $.$
+  private _$control!: $.$
+  private _$crumbs!: $.$
 
   private _selectElement = false
 
@@ -29,19 +34,19 @@ export class Elements extends Tool implements IDisposable {
     destroyStyle(this._cssEl)
 
     this._domViewer.destroy()
+  }
 
-    this._$detail = null
-    this._$domViewer = null
-    this._$control = null
-    this._$crumbs = null
-    this._htmlEl = null
+  public show() {
+    super.show()
+    this._showDetail()
+  }
+
+  public hide() {
+    super.hide()
   }
 
   public init($el: $.$, devTools: DevTools) {
     super.init($el, devTools)
-    if (!this._$domViewer) return
-    if (!this._htmlEl) return
-
     this._initTpl()
 
     const domViewerEl = this._$domViewer.get(0) as HTMLElement
@@ -49,6 +54,8 @@ export class Elements extends Tool implements IDisposable {
       node: this._htmlEl,
       ignore: (node) => isErudaEl(node) || isChobitsuEl(node),
     })
+
+    this._detail = new Detail(this._$detail)
   }
 
   private _initTpl() {
@@ -104,7 +111,7 @@ export class Elements extends Tool implements IDisposable {
   }
 
   private _showDetail() {
-    // TODO
+    this._detail.show(this._curNode)
   }
 
   private _copyNode() {

@@ -38,11 +38,15 @@ export class DevTools extends Emitter implements IDisposable {
 
     this._initNotification()
     this._initTab()
+    this._bindEventTab()
   }
 
   public show() {
     this._$el.show()
     this._isShow = true
+
+    // @ts-expect-error
+    this._tab.updateSlider()
     this.emit('show')
   }
 
@@ -61,6 +65,8 @@ export class DevTools extends Emitter implements IDisposable {
       return
     }
 
+    this._curToolName = name
+
     const tools = this._tools
     const tool = tools[name]
     if (!tool) {
@@ -78,6 +84,7 @@ export class DevTools extends Emitter implements IDisposable {
     tool.active = true
     tool.show()
 
+    this._tab.select(name)
     this.emit('showTool', name, lastTool)
   }
 
@@ -101,10 +108,7 @@ export class DevTools extends Emitter implements IDisposable {
     tool.init($nameEl, this)
 
     if (name === 'settings') {
-      tab.append({
-        id: name,
-        title: name,
-      })
+      tab.append({ id: name, title: name })
     } else {
       tab.insert(tab.length - 1, {
         id: name,
@@ -153,7 +157,10 @@ export class DevTools extends Emitter implements IDisposable {
       height: 40,
     })
     this._tab = lunaTab
-    lunaTab.on('select', (id: string) => this.showTool(id))
+  }
+
+  private _bindEventTab() {
+    this._tab.on('select', (id: string) => this.showTool(id))
   }
 
   private _setTransparency(opacity: number) {
@@ -169,10 +176,7 @@ export class DevTools extends Emitter implements IDisposable {
   private _initNotification() {
     const notificationEl = this._$el.find(c('.notification')).get(0) as HTMLElement
     this._notification = new LunaNotification(notificationEl, {
-      position: {
-        x: 'center',
-        y: 'top',
-      },
+      position: { x: 'center', y: 'top' },
     })
   }
 }

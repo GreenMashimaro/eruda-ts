@@ -12,7 +12,9 @@ import LunaSettingCss from 'luna-setting/luna-setting.css'
 import lunaDomViewerCss from 'luna-dom-viewer/luna-dom-viewer.css'
 import lunaDataGridCss from 'luna-data-grid/luna-data-grid.css'
 import lunaModalCss from 'luna-modal/luna-modal.css'
-import lunaNotificationScss from 'luna-notification/luna-notification.css'
+import lunaNotificationCss from 'luna-notification/luna-notification.css'
+import lunaConsoleCss from 'luna-console/luna-console.css'
+import lunaBoxModelCss from 'luna-box-model/luna-box-model.css'
 import StyleScss from '@/style/style.scss'
 
 import { Settings } from '@/Settings'
@@ -46,6 +48,8 @@ export class Eruda implements ErudaApi {
       devTools.add(tool)
     })
     this._devTools = devTools
+
+    devTools.showTool('console')
 
     this._initEntryBtn()
 
@@ -112,7 +116,9 @@ export class Eruda implements ErudaApi {
       lunaDomViewerCss,
       lunaDataGridCss,
       lunaModalCss,
-      lunaNotificationScss,
+      lunaNotificationCss,
+      lunaConsoleCss,
+      lunaBoxModelCss,
       StyleScss,
     ]
     this._styleEl = evalCss(styles.join(' '))

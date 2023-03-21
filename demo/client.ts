@@ -25,3 +25,9 @@ document.body.appendChild(el)
 new Eruda({
   container: el,
 })
+
+// trigger console.log
+console.log('[demo] log')
+console.info('[demo] info')
+console.warn('[demo] warn')
+console.error('[demo] error')
