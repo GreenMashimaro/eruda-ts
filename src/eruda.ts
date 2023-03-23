@@ -15,6 +15,8 @@ import lunaModalCss from 'luna-modal/luna-modal.css'
 import lunaNotificationCss from 'luna-notification/luna-notification.css'
 import lunaConsoleCss from 'luna-console/luna-console.css'
 import lunaBoxModelCss from 'luna-box-model/luna-box-model.css'
+import lunaTextViewerCss from 'luna-text-viewer/luna-text-viewer.css'
+import lunaObjectViewerCss from 'luna-object-viewer/luna-object-viewer.css'
 import StyleScss from '@/style/style.scss'
 
 import { Settings } from '@/Settings'
@@ -119,6 +121,8 @@ export class Eruda implements ErudaApi {
       lunaNotificationCss,
       lunaConsoleCss,
       lunaBoxModelCss,
+      lunaTextViewerCss,
+      lunaObjectViewerCss,
       StyleScss,
     ]
     this._styleEl = evalCss(styles.join(' '))

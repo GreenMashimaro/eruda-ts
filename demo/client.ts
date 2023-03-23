@@ -8,7 +8,9 @@ import Cookie from 'licia/cookie'
 // trigger get request
 console.log('[demo] trigger get request')
 axios.get('test-get')
-console.log('axios send get request')
+
+// trigger post request
+axios.post('test-post')
 
 // set cookie
 console.log('[demo] set cookie')

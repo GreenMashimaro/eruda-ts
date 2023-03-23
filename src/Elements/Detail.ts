@@ -32,7 +32,7 @@ export class Detail {
 
   private _initObserver() {
     this._obserrver = new MutationObserver((mutations) => {
-      console.log('zzn mutations:', mutations)
+      // TODO
     })
   }
 

@@ -20,6 +20,13 @@ function startServer() {
     res.send('hello, this is get request~')
   })
 
+  app.post('/test-post', (req, res) => {
+    res.send({
+      code: 0,
+      msg: 'ok',
+    })
+  })
+
   app.use('/dist', express.static(__dirname + '/dist'))
   app.use('/src', express.static(__dirname + '/src'))
   app.use('/static', express.static(__dirname + '/static'))
